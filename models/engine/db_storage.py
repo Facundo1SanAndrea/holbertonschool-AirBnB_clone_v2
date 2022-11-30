@@ -70,5 +70,5 @@ class DBStorage():
             self.save()
 
     def close(self):
-        """ Close method to call remove() method """
+        """Close database connection"""
         self.__session.close()
