@@ -3,26 +3,24 @@
 Module 7-states_list.py
 """
 from flask import Flask, render_template
-
+from models import storage
 
 app = Flask(__name__)
-app.url_map.strict_slashes = False
-
-
-@app.route("/states_list")
-def number_odd_or_even_route():
-        from models import storage
-        from models.state import State
-        sts = storage.all(State)
-        return render_template("7-states_list.html", sts=sts)
 
 
 @app.teardown_appcontext
 def teardown_db(exception):
-        from models import storage
-        storage.close()
+    """ removes the current SQLAlchemy Session"""
+    storage.close()
 
 
-if __name__ == '__main__':
-        app.run(host=('0.0.0.0'),
-                port=int('5000'), threaded=True)
+@app.route('/states_list', strict_slashes=False)
+def states_list():
+    """ renders all states """
+    return render_template(
+        '7-states_list.html', states=storage.all("State").values()
+        )
+
+
+if __name__ == "__main__":
+    app.run(host='0.0.0.0', port=5000)
