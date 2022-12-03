@@ -1,9 +1,7 @@
 #!/usr/bin/python3
-"""
-Module 7-states_list.py
-"""
+""" ni idea """
 from flask import Flask, render_template
-from models import storage
+from models import FileStorage
 
 app = Flask(__name__)
 
